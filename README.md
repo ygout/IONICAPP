@@ -1,8 +1,8 @@
 # IONICAPP
 Scan books Ionic &amp; api express
 
-Install :
+# INSTALL
 
-git clone : <githubprojeturl>
+git clone : githubprojeturl
 
 launch npm install in project directory
