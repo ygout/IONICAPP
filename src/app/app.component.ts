@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-
 import { UsersPage } from '../pages/users/users';
 import { LoginPage } from '../pages/login/login';
 import { BooksPage } from '../pages/books/books';
