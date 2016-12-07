@@ -14,3 +14,19 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default{
+  color: #7DB4B5;
+  background-color: transparent;
+}
+
+ion-header{
+
+}
+
+.scroll-content {
+  background-color: #E0EFF1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
