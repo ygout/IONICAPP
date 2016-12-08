@@ -61,9 +61,4 @@ login(credentials){
         });
   });
 }
-
-logout(){
-  this.storage.set('token', '');
-}
-
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, MenuController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
-import { LoginPage } from '../login/login';
 import { UserService } from '../../providers/user-service';
 import { BarcodeScanner } from 'ionic-native';
 
@@ -31,16 +30,17 @@ export class BooksPage {
   }
 
   ionViewDidLoad() {
-    this.showLoader();
-      //  Check if user have token
-      this.authService.checkAuthToken().then((result) => {
-          this.loading.dismiss();
-          if(!result){
-            this.navCtrl.setRoot(LoginPage);
-          }
-      }, (err) => {
-          this.loading.dismiss();
-      });
+    // TODO checkAuthToken cause double connection
+    // this.showLoader();
+    //   //  Check if user have token
+    //   this.authService.checkAuthToken().then((result) => {
+    //       this.loading.dismiss();
+    //       if(!result){
+    //         this.navCtrl.setRoot(LoginPage);
+    //       }
+    //   }, (err) => {
+    //       this.loading.dismiss();
+    //   });
   }
 
   showLoader(){
@@ -61,11 +61,8 @@ export class BooksPage {
   loadBooks(){
     this.userService.load()
     .then(data => {
-
       this.unread_books = data["unread_books"];
       this.read_books = data["read_books"];
-            console.log(data["read_books"]);
-            console.log(data["unread_books"]);
     });
   }
 }

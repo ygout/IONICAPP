@@ -30,3 +30,23 @@ ion-header{
   flex-direction: column;
   overflow: hidden;
 }
+
+.logo-brand {
+  color: #680148 !important;
+  float: left;
+  line-height: 45px;
+}
+
+.logo-ico{
+  color: #680148;
+  border-radius: 100px;
+  height: 45px;
+  width: 45px;
+  border: 1px solid #680148;
+  float: left;
+}
+
+.logo-ico::before{
+  font-size: 36px;
+  transform: translate(30%,10%);
+}

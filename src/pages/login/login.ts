@@ -58,10 +58,7 @@ export class LoginPage {
               this.storage.set('user', result["user"]).then(() => {
                 console.log('User has been set :');
               });
-            // this.storage.set('token', result["token"]);
             this.navCtrl.setRoot(BooksPage);
-           }else{
-            this.storage.set('token', '');
            }
        }, (err) => {
            this.loading.dismiss();

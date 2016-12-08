@@ -17,10 +17,32 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-card>
+  <ion-card-header>
+    <ion-icon class="contact-ico" name="contact"></ion-icon>
+      <div *ngIf="user" >
+        <ion-label>Hello, {{user.name}}</ion-label>
+      </div>
+  </ion-card-header>
+
+  <ion-list>
+
+  </ion-list>
+</ion-card>
+
   <div *ngIf="user" >
-      <h2>{{user.name}}</h2>
-      <h2>{{user.firstname}}</h2>
-      <h2>{{user.username}}</h2>
+    <ion-item>
+      <ion-label stacked>Name</ion-label>
+      <ion-textarea [(ngModel)]=user.name></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Firstname</ion-label>
+      <ion-textarea [(ngModel)]=user.firstname></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Username</ion-label>
+      <ion-textarea [(ngModel)]=user.username></ion-textarea>
+    </ion-item>
   </div>
 
     <!-- <button ion-item *ngFor="let user of users">
