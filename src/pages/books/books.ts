@@ -52,20 +52,19 @@ export class BooksPage {
 
       this.loading.present();
   }
-
+scanTest(){
+  this.bookService.loadByIsbn('9780620365536')
+  .then(data => {
+    this.booksIsbn = data;
+    console.log( 'dataIsbn',data);
+  });
+}
   scan(){
-    this.bookService.loadByIsbn(this.isbn)
-    .then(data => {
-      this.booksIsbn =data;
-      console.log( this.booksIsbn);
+    BarcodeScanner.scan().then((barcodeData) => {
+     this.isbn = barcodeData.text;
+    }, (err) => {
+      // An error occurred
     });
-
-
-    // BarcodeScanner.scan().then((barcodeData) => {
-    //  this.isbn = barcodeData.text;
-    // }, (err) => {
-    //   // An error occurred
-    // });
   }
   loadBooks(){
     this.userService.load()
