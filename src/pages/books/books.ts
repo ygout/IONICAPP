@@ -62,12 +62,11 @@ export class BooksPage {
       console.log( this.booksIsbn);
     });
 
-
-    // BarcodeScanner.scan().then((barcodeData) => {
-    //  this.isbn = barcodeData.text;
-    // }, (err) => {
-    //   // An error occurred
-    // });
+    BarcodeScanner.scan().then((barcodeData) => {
+     this.isbn = barcodeData.text;
+    }, (err) => {
+      // An error occurred
+    });
   }
   loadBooks(){
     this.userService.load()
@@ -80,7 +79,7 @@ export class BooksPage {
   // setRead(){
   //   this.bookService.setRead()
   // }
-  // 
+  //
   // setUnread(){
   //   this.bookService.setUnread()
   // }
