@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, MenuController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { UserService } from '../../providers/user-service';
+import { BookService } from '../../providers/book-service';
 import { BarcodeScanner } from 'ionic-native';
 
 /*
@@ -13,17 +14,19 @@ import { BarcodeScanner } from 'ionic-native';
 @Component({
   selector: 'page-books',
   templateUrl: 'books.html',
-  providers: [UserService]
+  providers: [UserService, BookService]
 })
 export class BooksPage {
 
+  books:any;
   loading: any;
   menu: any;
   unread_books: any;
   read_books: any;
   isbn: any;
 
-  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public userService: UserService) {
+  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public bookService: BookService, public userService: UserService) {
+    this.books = "readbooks"
     this.loadBooks();
     this.menu = menuCtrl;
     this.menu.enable(true, "sideMenu")
@@ -64,5 +67,13 @@ export class BooksPage {
       this.unread_books = data["unread_books"];
       this.read_books = data["read_books"];
     });
+  }
+
+  setRead(){
+    this.bookService.setRead()
+  }
+
+  setUnread(){
+    this.bookService.setUnread()
   }
 }
