@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, MenuController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { UserService } from '../../providers/user-service';
+import { BookService } from '../../providers/book-service';
 import { BarcodeScanner } from 'ionic-native';
 
 /*
@@ -13,7 +14,7 @@ import { BarcodeScanner } from 'ionic-native';
 @Component({
   selector: 'page-books',
   templateUrl: 'books.html',
-  providers: [UserService]
+  providers: [UserService,BookService]
 })
 export class BooksPage {
 
@@ -22,8 +23,9 @@ export class BooksPage {
   unread_books: any;
   read_books: any;
   isbn: any;
+  booksIsbn: any;
 
-  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public userService: UserService) {
+  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public userService: UserService, public bookService: BookService) {
     this.loadBooks();
     this.menu = menuCtrl;
     this.menu.enable(true, "sideMenu")
@@ -52,11 +54,18 @@ export class BooksPage {
   }
 
   scan(){
-    BarcodeScanner.scan().then((barcodeData) => {
-     this.isbn = barcodeData.text;
-    }, (err) => {
-      // An error occurred
+    this.bookService.loadByIsbn(this.isbn)
+    .then(data => {
+      this.booksIsbn =data;
+      console.log( this.booksIsbn);
     });
+
+
+    // BarcodeScanner.scan().then((barcodeData) => {
+    //  this.isbn = barcodeData.text;
+    // }, (err) => {
+    //   // An error occurred
+    // });
   }
   loadBooks(){
     this.userService.load()
