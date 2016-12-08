@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
+import { Storage } from '@ionic/storage';
 import 'rxjs/add/operator/map';
 
 /*
@@ -10,37 +11,38 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class BookService {
-   data: any;
+  data: any;
+  public token: any;
 
-  constructor(public http: Http) {
-    console.log('Hello BookService Provider');
-
-
+  constructor(public http: Http, public storage: Storage ) {
   }
   // Load all books users
   load() {
-    console.log('load provider');
+    let headers = new Headers();
 
-  if (this.data) {
-    // already loaded data
-    return Promise.resolve(this.data);
-  }
+    if (this.data) {
+      // already loaded data
+      return Promise.resolve(this.data);
+    }
 
-  // don't have the data yet
-  return new Promise(resolve => {
-    // We're using Angular HTTP provider to request the data,
-    // then on the response, it'll map the JSON data to a parsed JS object.
-    // Next, we process the data and resolve the promise with the new data.
-    this.http.get('http://localhost:4000/books')
-      .map(res => res.json())
-      .subscribe(data => {
-        // we've got back the raw data, now generate the core schedule data
-        // and save the data for later reference
-        console.log('data',data);
-        this.data = data;
-        resolve(this.data);
+    // don't have the data yet
+    return new Promise(resolve => {
+      this.storage.get('token').then((value) => {
+        headers.append('x-access-token', value);
+        // We're using Angular HTTP provider to request the data,
+        // then on the response, it'll map the JSON data to a parsed JS object.
+        // Next, we process the data and resolve the promise with the new data.
+        this.http.get('http://localhost:4000/auth/books', {headers: headers})
+          .map(res => res.json())
+          .subscribe(data => {
+            // we've got back the raw data, now generate the core schedule data
+            // and save the data for later reference
+            this.data = data;
+            resolve(this.data);
+          });
       });
-  });
+
+    });
 }
 
 }

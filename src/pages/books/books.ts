@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, MenuController } from 'ionic-angular';
 import { Auth } from '../../providers/auth';
 import { LoginPage } from '../login/login';
+import { UserService } from '../../providers/user-service';
+import { BarcodeScanner } from 'ionic-native';
 
 /*
   Generated class for the Books page.
@@ -11,14 +13,19 @@ import { LoginPage } from '../login/login';
 */
 @Component({
   selector: 'page-books',
-  templateUrl: 'books.html'
+  templateUrl: 'books.html',
+  providers: [UserService]
 })
 export class BooksPage {
 
   loading: any;
   menu: any;
+  unread_books: any;
+  read_books: any;
+  isbn: any;
 
-  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public userService: UserService) {
+    this.loadBooks();
     this.menu = menuCtrl;
     this.menu.enable(true, "sideMenu")
   }
@@ -42,5 +49,23 @@ export class BooksPage {
       });
 
       this.loading.present();
+  }
+
+  scan(){
+    BarcodeScanner.scan().then((barcodeData) => {
+     this.isbn = barcodeData.text;
+    }, (err) => {
+      // An error occurred
+    });
+  }
+  loadBooks(){
+    this.userService.load()
+    .then(data => {
+
+      this.unread_books = data["unread_books"];
+      this.read_books = data["read_books"];
+            console.log(data["read_books"]);
+            console.log(data["unread_books"]);
+    });
   }
 }

@@ -13,15 +13,15 @@ import 'rxjs/add/operator/map';
 export class Auth {
 
   public token: any;
+  public user: any;
 
-  constructor(public http: Http,public storage: Storage) { }
+  constructor(public http: Http, public storage: Storage) { }
 
   checkAuthToken(){
     return new Promise((resolve, reject) => {
       this.storage.get('token').then((value) => {
-        setTimeout(function(){ console.log("checkAuthToken:" + value); }, 10);
         resolve(value);
-        });
+      });
     });
   }
 
@@ -34,8 +34,11 @@ export class Auth {
         .subscribe(res => {
 
           let data = res.json();
+          this.user = data.user;
           this.token = data.token;
+
           this.storage.set('token', data.token);
+
           resolve(data);
 
         }, (err) => {

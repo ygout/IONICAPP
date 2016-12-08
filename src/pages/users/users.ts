@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController, MenuController } from 'ionic-angular';
+import { Auth } from '../../providers/auth';
+import { LoginPage } from '../login/login';
+import { Storage } from '@ionic/storage';
+import { UserService } from '../../providers/user-service';
 
 /*
   Generated class for the Users page.
@@ -9,16 +13,45 @@ import { NavController } from 'ionic-angular';
 */
 @Component({
   selector: 'page-users',
-  templateUrl: 'users.html'
+  templateUrl: 'users.html',
+  providers: [UserService]
 })
 
 export class UsersPage {
-  constructor(public navCtrl: NavController) {
+  loading: any;
+  menu: any;
+  user: any;
+  unreadBooks:any;
 
+  constructor(public navCtrl: NavController, public authService: Auth, public storage: Storage, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public userService: UserService) {
+    this.loadUser();
+    this.menu = menuCtrl;
+    this.menu.enable(true, "sideMenu")
   }
 
   ionViewDidLoad() {
-    console.log('Hello UsersPage Page');
+    this.showLoader();
+      //  Check if user have token
+      this.authService.checkAuthToken().then((result) => {
+          this.loading.dismiss();
+          if(!result){
+            this.navCtrl.setRoot(LoginPage);
+          }
+      }, (err) => {
+          this.loading.dismiss();
+      });
   }
 
+  showLoader(){
+      this.loading = this.loadingCtrl.create({
+          content: 'Loading...'
+      });
+
+      this.loading.present();
+  }
+  loadUser(){
+    this.storage.get('user').then((value) => {
+      this.user = value;
+    });
+  }
 }

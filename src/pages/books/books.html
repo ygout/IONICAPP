@@ -18,11 +18,38 @@
 
 
 <ion-content padding>
+<div *ngIf="isbn" >
+    <h2>{{isbn}}</h2>
+</div>
+<h2>Readed books</h2>
+<div *ngIf="read_books" >
+  <ion-list>
+    <ion-item *ngFor="let book of read_books">
+        <h2>{{book.title}}</h2>
+        <h3>{{book.isbn}}</h3>
+    </ion-item>
+  </ion-list>
+</div>
+<div *ngIf="!read_books" >
+    No books
+</div>
+
+<h2>Unread books</h2>
+<div *ngIf="unread_books" >
+  <ion-list>
+    <ion-item *ngFor="let book of unread_books">
+        <h2>{{book.title}}</h2>
+        <h3>{{book.isbn}}</h3>
+    </ion-item>
+  </ion-list>
+</div>
+<div *ngIf="!unread_books" >
+    No books
+</div>
 
 </ion-content>
-
 <ion-footer>
   <ion-toolbar>
-    <ion-title>Liby'B ©</ion-title>
+    <button class="camera-btn" ion-button secondary (click)= "scan() "><ion-icon class="footer-ico" ios="ios-camera" md="md-camera"></ion-icon> Scanner</button>
   </ion-toolbar>
 </ion-footer>
