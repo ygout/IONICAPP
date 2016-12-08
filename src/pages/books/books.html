@@ -18,35 +18,59 @@
 
 
 <ion-content padding>
-<div *ngIf="isbn" >
-    <h2>{{isbn}}</h2>
-</div>
-<h2>Read books</h2>
-<div *ngIf="read_books" >
-  <ion-list>
-    <ion-item *ngFor="let book of read_books">
-        <h2>{{book.title}}</h2>
-        <h3>{{book.isbn}}</h3>
-    </ion-item>
-  </ion-list>
-</div>
-<div *ngIf="!read_books" >
-    No books
+<div padding>
+  <ion-segment [(ngModel)]="books">
+    <ion-segment-button value="readbooks">
+      Read books
+    </ion-segment-button>
+    <ion-segment-button value="unreadbooks">
+      Unread books
+    </ion-segment-button>
+  </ion-segment>
 </div>
 
-<h2>Unread books</h2>
-<div *ngIf="unread_books" >
-  <ion-list>
-    <ion-item *ngFor="let book of unread_books">
-        <h2>{{book.title}}</h2>
-        <h3>{{book.isbn}}</h3>
-    </ion-item>
+<div [ngSwitch]="books">
+  <ion-list *ngSwitchCase="'readbooks'">
+    <div *ngIf="isbn" >
+        <h2>{{isbn}}</h2>
+    </div>
+    <div *ngIf="read_books" >
+      <ion-list>
+        <ion-item *ngFor="let book of read_books">
+          <ion-thumbnail item-left>
+            <ion-icon name="ios-book-outline"></ion-icon>
+          </ion-thumbnail>
+            <h2>{{book.title}}</h2>
+            <h3>{{book.isbn}}</h3>
+            <button class="book-btn" ion-button secondary><ion-icon name="md-close"></ion-icon> Unread</button>
+            <!-- <button class="book-btn" ion-button secondary (click)= "setUnread() "><ion-icon name="md-close"></ion-icon> Unread</button> -->
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngIf="!read_books" >
+        No books
+    </div>
+  </ion-list>
+
+  <ion-list *ngSwitchCase="'unreadbooks'">
+    <div *ngIf="unread_books" >
+      <ion-list>
+        <ion-item *ngFor="let book of unread_books">
+          <ion-thumbnail item-left>
+            <ion-icon name="ios-book-outline"></ion-icon>
+          </ion-thumbnail>
+            <h2>{{book.title}}</h2>
+            <h3>{{book.isbn}}</h3>
+              <!-- <button class="book-btn" ion-button secondary (click)= "setRead() "><ion-icon name="md-checkbox-outline"></ion-icon> Read</button> -->
+              <button class="book-btn" ion-button secondary><ion-icon name="md-checkbox-outline"></ion-icon> Read</button>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div *ngIf="!unread_books" >
+        No books
+    </div>
   </ion-list>
 </div>
-<div *ngIf="!unread_books" >
-    No books
-</div>
-
 </ion-content>
 <ion-footer>
   <ion-toolbar>

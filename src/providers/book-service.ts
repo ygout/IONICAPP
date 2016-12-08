@@ -71,5 +71,4 @@ loadByIsbn(isbn){
 
   });
 }
-
 }

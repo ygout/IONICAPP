@@ -13,4 +13,15 @@ page-books {
   ion-footer{
     text-align: center;
   }
+
+  .book-btn{
+    background-color: #680148;
+    color: white;
+    width: 35%;
+  }
+
+  .book-btn ion-icon{
+    font-size: 15px;
+    margin-right: 8px;
+  }
 }

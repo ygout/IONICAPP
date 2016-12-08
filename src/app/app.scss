@@ -31,6 +31,21 @@ ion-header{
   overflow: hidden;
 }
 
+.segment-md .segment-button.activated, .segment-md .segment-button.segment-activated{
+  color: #680148 !important;
+  border-color: #680148;
+}
+
+.segment-md .segment-button{
+  color: #680148 !important;
+  opacity: 0.5;
+}
+
+.ion-ios-book-outline{
+  color:#7DB4B5;
+  font-size: 75px;
+}
+
 .logo-brand {
   color: #680148 !important;
   float: left;

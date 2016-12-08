@@ -18,6 +18,7 @@ import { BarcodeScanner } from 'ionic-native';
 })
 export class BooksPage {
 
+  books:any;
   loading: any;
   menu: any;
   unread_books: any;
@@ -26,6 +27,7 @@ export class BooksPage {
   booksIsbn: any;
 
   constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public userService: UserService, public bookService: BookService) {
+    this.books = "readbooks"
     this.loadBooks();
     this.menu = menuCtrl;
     this.menu.enable(true, "sideMenu")
@@ -73,4 +75,12 @@ scanTest(){
       this.read_books = data["read_books"];
     });
   }
+
+  // setRead(){
+  //   this.bookService.setRead()
+  // }
+  // 
+  // setUnread(){
+  //   this.bookService.setUnread()
+  // }
 }
