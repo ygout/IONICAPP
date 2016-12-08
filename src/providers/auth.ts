@@ -30,7 +30,7 @@ export class Auth {
       let headers = new Headers();
       headers.append('Content-type', 'application/x-www-form-urlencoded')
 
-      this.http.post('http://localhost:4000/auth/users', JSON.stringify(details), {headers: headers})
+      this.http.post('https://apirestwebapp.herokuapp.com/auth/users', JSON.stringify(details), {headers: headers})
         .subscribe(res => {
 
           let data = res.json();
@@ -52,7 +52,7 @@ login(credentials){
       let headers = new Headers();
       var body = `name=${credentials.name}&password=${credentials.password}`;
       headers.append('Content-type', 'application/x-www-form-urlencoded');
-        this.http.post('http://localhost:4000/authenticate', body, {headers: headers})
+        this.http.post('https://apirestwebapp.herokuapp.com/authenticate', body, {headers: headers})
         .map(res => res.json())
         .subscribe(res => {
           resolve(res);

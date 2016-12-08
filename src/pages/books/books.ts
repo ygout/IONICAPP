@@ -14,7 +14,7 @@ import { BarcodeScanner } from 'ionic-native';
 @Component({
   selector: 'page-books',
   templateUrl: 'books.html',
-  providers: [UserService, BookService]
+  providers: [UserService,BookService]
 })
 export class BooksPage {
 
@@ -24,8 +24,9 @@ export class BooksPage {
   unread_books: any;
   read_books: any;
   isbn: any;
+  booksIsbn: any;
 
-  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public bookService: BookService, public userService: UserService) {
+  constructor(public navCtrl: NavController, public authService: Auth, public loadingCtrl: LoadingController, public menuCtrl: MenuController, public userService: UserService, public bookService: BookService) {
     this.books = "readbooks"
     this.loadBooks();
     this.menu = menuCtrl;
@@ -55,11 +56,18 @@ export class BooksPage {
   }
 
   scan(){
-    BarcodeScanner.scan().then((barcodeData) => {
-     this.isbn = barcodeData.text;
-    }, (err) => {
-      // An error occurred
+    this.bookService.loadByIsbn(this.isbn)
+    .then(data => {
+      this.booksIsbn =data;
+      console.log( this.booksIsbn);
     });
+
+
+    // BarcodeScanner.scan().then((barcodeData) => {
+    //  this.isbn = barcodeData.text;
+    // }, (err) => {
+    //   // An error occurred
+    // });
   }
   loadBooks(){
     this.userService.load()
@@ -69,11 +77,11 @@ export class BooksPage {
     });
   }
 
-  setRead(){
-    this.bookService.setRead()
-  }
-
-  setUnread(){
-    this.bookService.setUnread()
-  }
+  // setRead(){
+  //   this.bookService.setRead()
+  // }
+  // 
+  // setUnread(){
+  //   this.bookService.setUnread()
+  // }
 }
